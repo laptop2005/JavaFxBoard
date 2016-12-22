@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="board">
+
+	
+
+	<!-- 데이터를 select할때 VO에 매칭시켜서 담아오기 위한 설정 -->
+	<resultMap id="BoardVO" class="vo.BoardVO">
+		<result column="BOARD_ID" property="boardId" />
+		<result column="BOARD_TITLE" property="boardTitle" />
+		<result column="BOARD_WRITER" property="boardWriter" />
+		<result column="BOARD_DATE" property="boardDate" />
+		<result column="BOARD_CONTENT" property="boardContent" />
+	</resultMap>
+	
+	<select id="selectBoardList" resultMap="BoardVO">
+		SELECT
+			BOARD_ID,
+			BOARD_TITLE,
+			BOARD_WRITER,
+			BOARD_DATE,
+			BOARD_CONTENT
+		FROM
+			FX_BOARD
+		WHERE 1=1
+		<isNotEmpty property="boardTitle" prepend="AND">
+			BOARD_TITLE LIKE '%'||#boardTitle#||'%'
+		</isNotEmpty>
+		<isNotEmpty property="boardWriter" prepend="AND">
+			BOARD_WRITER LIKE '%'||#boardWriter#||'%'
+		</isNotEmpty>
+		ORDER BY BOARD_ID DESC
+	</select>
+	
+	<select id="selectBoard" resultMap="BoardVO">
+		SELECT
+			BOARD_ID,
+			BOARD_TITLE,
+			BOARD_WRITER,
+			BOARD_DATE,
+			BOARD_CONTENT
+		FROM
+			FX_BOARD
+		WHERE 
+			BOARD_ID = #BOARD_ID#
+	</select>
+	
+	<insert id="insertBoard">
+		INSERT INTO FX_BOARD 
+			(BOARD_ID, BOARD_TITLE, BOARD_WRITER, BOARD_DATE, BOARD_CONTENT)
+		VALUES 
+			((SELECT NVL(MAX(BOARD_ID),0)+1 FROM FX_BOARD), #boardTitle#,'me',SYSDATE,#boardContent#)
+	</insert>
+	
+	<update id="updateBoard">
+		UPDATE FX_BOARD
+		SET
+			BOARD_TITLE = #boardTitle#,
+			BOARD_WRITER = #boardWriter#,
+			BOARD_DATE = SYSDATE,
+			BOARD_CONTENT = #boardContent#
+		WHERE
+			BOARD_ID = #boardId#
+	</update>
+	
+	<delete id="deleteBoard">
+		DELETE FROM FX_BOARD
+		WHERE BOARD_ID = #boardId#
+	</delete>
+	
+</sqlMap>

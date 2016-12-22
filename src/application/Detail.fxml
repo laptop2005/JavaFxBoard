@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.FlowPane?>
+
+<FlowPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" orientation="VERTICAL" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.DetailController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Pane minHeight="50.0" minWidth="600.0" prefHeight="-1.0" prefWidth="-1.0">
+      <children>
+        <Label fx:id="label_boardId" layoutX="14.0" layoutY="15.0" text="" />
+        <TextField fx:id="textField_boardTitle" layoutX="77.0" layoutY="12.0" prefWidth="509.0" />
+      </children>
+    </Pane>
+    <Pane minHeight="50.0" minWidth="600.0" prefHeight="-1.0" prefWidth="-1.0">
+      <children>
+        <Label fx:id="label_boardWriter" layoutX="14.0" layoutY="14.0" prefWidth="173.0" text="작성자" />
+        <Label fx:id="label_boardDate" layoutX="285.0" layoutY="14.0" prefWidth="301.0" text="작성일" />
+      </children>
+    </Pane>
+    <TextArea id="textArea_boardArea" fx:id="textArea_boardContent" minHeight="250.0" minWidth="600.0" prefHeight="-1.0" prefWidth="-1.0" wrapText="true" />
+    <Pane minHeight="50.0" minWidth="600.0" prefHeight="-1.0" prefWidth="-1.0">
+      <children>
+        <Button layoutX="355.0" layoutY="11.0" mnemonicParsing="false" onAction="#click_save" text="저장" />
+        <Button layoutX="505.0" layoutY="11.0" mnemonicParsing="false" onAction="#click_cancel" text="취소" />
+        <Button layoutX="430.0" layoutY="11.0" mnemonicParsing="false" onAction="#click_save" text="삭제" />
+      </children>
+    </Pane>
+  </children>
+</FlowPane>
